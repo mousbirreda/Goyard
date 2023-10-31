@@ -1,0 +1,64 @@
+Mettre en place un Azure API Management (APIM) pour permettre à un CRM hébergé en SaaS (comme Salesforce) d'accéder à des API hébergées on-premises est un scénario courant. Voici une approche étape par étape pour y parvenir :
+
+Connectivité entre Azure et On-Premises :
+
+Si la connexion entre Azure et votre infrastructure on-premises se fait via Internet, assurez-vous d'avoir une connexion sécurisée, comme un VPN ou un Azure ExpressRoute.
+Si ce n'est pas déjà fait, configurez le réseau virtuel Azure (VNet) et connectez-le à votre réseau on-premises.
+Azure API Management (APIM) :
+
+Créez une instance d'APIM dans Azure.
+Configurez votre APIM pour qu'il soit intégré au VNet Azure. Cela permettra à APIM d'accéder à vos services web on-premises.
+Importation des API :
+
+Dans l'APIM, importez vos services web on-premises comme des API. Vous devrez fournir l'URL de votre service web et d'autres détails pertinents.
+Une fois importées, ces API seront exposées via l'APIM et auront une nouvelle URL publique.
+Sécurité :
+
+Assurez-vous que vos API sont sécurisées. Utilisez des politiques dans l'APIM pour ajouter une authentification et une autorisation, comme des clés d'API ou des jetons JWT.
+Configurez des règles de pare-feu pour n'autoriser que l'APIM à accéder à vos services web on-premises.
+Intégration avec Salesforce :
+
+Dans Salesforce, configurez les appels sortants pour utiliser les URL publiques fournies par l'APIM.
+Fournissez à Salesforce les clés d'API ou les jetons nécessaires pour accéder à l'APIM.
+Surveillance et diagnostics :
+
+Utilisez les fonctionnalités de surveillance intégrées d'APIM pour surveiller les appels d'API.
+Configurez des alertes pour être informé de tout problème ou dépassement de seuil.
+Optimisation :
+
+Utilisez des politiques dans l'APIM pour mettre en cache les réponses, limiter le débit ou transformer les demandes/réponses si nécessaire.
+Documentation :
+
+Utilisez le portail développeur d'APIM pour fournir une documentation à vos utilisateurs ou développeurs sur la manière d'utiliser les API.
+En suivant ces étapes, vous devriez être en mesure de permettre à Salesforce d'accéder à vos services web on-premises via Azure API Management de manière sécurisée et optimisée. Assurez-vous de tester soigneusement chaque étape pour garantir la sécurité et la performance de votre solution.
+
+
+
+
+User
+Configurez des règles de pare-feu pour n'autoriser que l'APIM à accéder à vos services web on-premises pour faire cette etape comment je peux dire à mon firewall d'autoriser que APIM ?
+ChatGPT
+Pour configurer votre pare-feu afin qu'il n'autorise que l'Azure API Management (APIM) à accéder à vos services web on-premises, vous devez utiliser les adresses IP sortantes de votre instance APIM. Voici comment procéder :
+
+Trouver les adresses IP sortantes de l'APIM :
+
+Connectez-vous au portail Azure.
+Naviguez vers votre instance APIM.
+Dans le menu de gauche, cliquez sur "Vue d'ensemble" ou "Overview".
+Vous devriez voir les détails de votre instance APIM, y compris les adresses IP sortantes.
+Configurer le pare-feu :
+
+Connectez-vous à l'interface de gestion de votre pare-feu on-premises.
+Naviguez vers la section où vous pouvez définir des règles de pare-feu entrantes.
+Créez une nouvelle règle qui autorise le trafic entrant depuis les adresses IP sortantes de l'APIM que vous avez notées à l'étape précédente.
+Assurez-vous que cette règle est spécifique aux ports que vos services web utilisent (par exemple, le port 80 pour HTTP ou le port 443 pour HTTPS).
+Bloquez tout autre trafic qui n'est pas explicitement autorisé.
+Testez la configuration :
+
+Essayez d'accéder à vos services web on-premises depuis une adresse IP qui n'est pas celle de l'APIM. Vous devriez obtenir une erreur ou une réponse indiquant que l'accès est refusé.
+Essayez maintenant d'accéder à vos services web via l'APIM. Cela devrait fonctionner sans problème.
+Considérations supplémentaires :
+
+Si vous avez plusieurs instances d'APIM ou si vous prévoyez d'en ajouter d'autres à l'avenir, assurez-vous d'ajouter leurs adresses IP sortantes à la liste autorisée.
+Les adresses IP sortantes de l'APIM peuvent changer si vous effectuez certaines opérations, comme la mise à l'échelle ou la modification de la configuration du réseau. Assurez-vous de vérifier régulièrement ces adresses et de mettre à jour les règles de votre pare-feu en conséquence.
+En suivant ces étapes, vous devriez être en mesure de configurer votre pare-feu pour n'autoriser que l'APIM à accéder à vos services web on-premises. Assurez-vous de surveiller régulièrement les journaux de votre pare-feu pour détecter toute activité suspecte.

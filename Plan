@@ -1,0 +1,33 @@
+Mettre en place un Azure API Management (APIM) pour permettre à un CRM hébergé en SaaS (comme Salesforce) d'accéder à des API hébergées on-premises est un scénario courant. Voici une approche étape par étape pour y parvenir :
+
+1. **Connectivité entre Azure et On-Premises** :
+   - Si la connexion entre Azure et votre infrastructure on-premises se fait via Internet, assurez-vous d'avoir une connexion sécurisée, comme un VPN ou un Azure ExpressRoute.
+   - Si ce n'est pas déjà fait, configurez le réseau virtuel Azure (VNet) et connectez-le à votre réseau on-premises.
+
+2. **Azure API Management (APIM)** :
+   - Créez une instance d'APIM dans Azure.
+   - Configurez votre APIM pour qu'il soit intégré au VNet Azure. Cela permettra à APIM d'accéder à vos services web on-premises.
+
+3. **Importation des API** :
+   - Dans l'APIM, importez vos services web on-premises comme des API. Vous devrez fournir l'URL de votre service web et d'autres détails pertinents.
+   - Une fois importées, ces API seront exposées via l'APIM et auront une nouvelle URL publique.
+
+4. **Sécurité** :
+   - Assurez-vous que vos API sont sécurisées. Utilisez des politiques dans l'APIM pour ajouter une authentification et une autorisation, comme des clés d'API ou des jetons JWT.
+   - Configurez des règles de pare-feu pour n'autoriser que l'APIM à accéder à vos services web on-premises.
+
+5. **Intégration avec Salesforce** :
+   - Dans Salesforce, configurez les appels sortants pour utiliser les URL publiques fournies par l'APIM.
+   - Fournissez à Salesforce les clés d'API ou les jetons nécessaires pour accéder à l'APIM.
+
+6. **Surveillance et diagnostics** :
+   - Utilisez les fonctionnalités de surveillance intégrées d'APIM pour surveiller les appels d'API.
+   - Configurez des alertes pour être informé de tout problème ou dépassement de seuil.
+
+7. **Optimisation** :
+   - Utilisez des politiques dans l'APIM pour mettre en cache les réponses, limiter le débit ou transformer les demandes/réponses si nécessaire.
+
+8. **Documentation** :
+   - Utilisez le portail développeur d'APIM pour fournir une documentation à vos utilisateurs ou développeurs sur la manière d'utiliser les API.
+
+En suivant ces étapes, vous devriez être en mesure de permettre à Salesforce d'accéder à vos services web on-premises via Azure API Management de manière sécurisée et optimisée. Assurez-vous de tester soigneusement chaque étape pour garantir la sécurité et la performance de votre solution.

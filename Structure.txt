@@ -1,0 +1,19 @@
+main.tf
+variables.tf
+outputs.tf
+modules/
+│
+├── vpn/
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+│
+├── apim/
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+│
+└── routing_security/
+    ├── main.tf
+    ├── variables.tf
+    └── outputs.tf

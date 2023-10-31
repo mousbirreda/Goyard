@@ -1,0 +1,35 @@
+Déployer Azure API Management (APIM) en mode "self-hosted" (hybride) nécessite plusieurs étapes pour configurer correctement l'environnement. Voici un guide étape par étape pour déployer APIM en mode hybride :
+
+1. **Prérequis** :
+   - Assurez-vous d'avoir une instance d'Azure API Management dans Azure.
+   - Vous aurez besoin d'une machine (physique ou virtuelle) pour héberger le gateway APIM. Cette machine doit répondre aux exigences minimales recommandées par Microsoft.
+   - Docker doit être installé sur cette machine, car le gateway APIM est distribué sous forme d'image Docker.
+
+2. **Télécharger l'image Docker du gateway APIM** :
+   - Connectez-vous au portail Azure.
+   - Naviguez vers votre instance APIM et sélectionnez la section "Gateways" dans le menu de gauche.
+   - Cliquez sur "+ Ajouter" pour créer un nouveau gateway. Notez les détails, car vous en aurez besoin pour la configuration.
+   - Une fois le gateway créé, vous obtiendrez un lien pour télécharger l'image Docker et un jeton pour l'authentification.
+
+3. **Déployer l'image Docker sur votre machine** :
+   - Sur votre machine locale (là où Docker est installé), exécutez la commande fournie par Azure pour télécharger et exécuter l'image Docker du gateway APIM.
+   - Cette commande inclura le jeton d'authentification nécessaire pour lier le conteneur Docker à votre instance APIM dans Azure.
+
+4. **Configurer le gateway** :
+   - Une fois le conteneur Docker en cours d'exécution, vous pouvez accéder à l'interface de gestion du gateway via un navigateur web.
+   - Connectez-vous à l'interface de gestion et configurez le gateway selon vos besoins. Cela inclut la définition des routes, des politiques, de la sécurité, etc.
+
+5. **Intégrer le gateway avec Azure APIM** :
+   - Dans le portail Azure, sous votre instance APIM, naviguez vers la section "Gateways".
+   - Vous devriez voir le gateway que vous avez déployé comme étant "en ligne" ou "connecté".
+   - À partir de là, vous pouvez gérer et surveiller le gateway directement depuis le portail Azure.
+
+6. **Exposer et sécuriser le gateway** :
+   - Assurez-vous que le gateway est accessible depuis les clients ou les systèmes qui doivent appeler vos API.
+   - Sécurisez le gateway en utilisant des mécanismes tels que des certificats SSL/TLS, des pare-feu, etc.
+
+7. **Surveillance et maintenance** :
+   - Utilisez les outils de surveillance intégrés dans Azure APIM pour surveiller l'état et la performance du gateway.
+   - Assurez-vous de maintenir à jour l'image Docker du gateway pour bénéficier des dernières mises à jour et correctifs de sécurité.
+
+En suivant ces étapes, vous devriez être en mesure de déployer et de gérer Azure APIM en mode "self-hosted" (hybride) dans votre environnement. Assurez-vous de consulter régulièrement la documentation officielle de Microsoft pour obtenir des informations à jour et des recommandations sur les meilleures pratiques.
