@@ -1,7 +1,7 @@
 Mettre en place un Azure API Management (APIM) pour permettre à un CRM hébergé en SaaS (comme Salesforce) d'accéder à des API hébergées on-premises est un scénario courant. Voici une approche étape par étape pour y parvenir :
 
 Connectivité entre Azure et On-Premises :
-
+x
 Si la connexion entre Azure et votre infrastructure on-premises se fait via Internet, assurez-vous d'avoir une connexion sécurisée, comme un VPN ou un Azure ExpressRoute.
 Si ce n'est pas déjà fait, configurez le réseau virtuel Azure (VNet) et connectez-le à votre réseau on-premises.
 Azure API Management (APIM) :
