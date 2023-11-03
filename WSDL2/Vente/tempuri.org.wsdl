@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="http://www.cegid.fr/Retail/1.0" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SaleDocumentService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://www.cegid.fr/Retail/1.0" location="http://gyd-test-iis01/Y2_TEST/SaleDocumentService.svc?wsdl=wsdl0" />
+  <wsdl:types />
+  <wsdl:binding name="BasicHttpBinding_ISaleDocumentService" type="i0:ISaleDocumentService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <wsdl:documentation>Méthode HelloWorld pour valider l'accès au Web Service depuis tout client HTTP très léger via Javascript par exemple</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ICbrBasicWebServiceInterface/HelloWorld" style="document" />
+      <wsdl:input>
+        <wsdl:documentation>Texte à passer pour tester la consommation.</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation>Renvoie le texte saisi en entrée, concaténé de la phrase 'Hello You'</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetHeaderList">
+      <wsdl:documentation>[Ajouté 2013/04 - V1102] - Permet d'obtenir la liste de l'historique de vente (entête) d'un client. La liste est triée par dates décroissantes. La restriction 'Consultation des ventes d’un client' est appliquée dans le calcul de cet historique.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/GetHeaderList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation />
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetByKey">
+      <wsdl:documentation>[Ajouté 2013/04 - V1102] - Permet d'obtenir un document de vente en fonction de sa clé unique.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/GetByKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation>Renvoie le document de vente.</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetByReference">
+      <wsdl:documentation>[Ajouté 2013/04 - V1102] - Permet d'obtenir un document de vente en fonction de sa référence client.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/GetByReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation />
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Create">
+      <wsdl:documentation>[Ajouté 2013/04 - V1102] - Permet la création d'un document de vente.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/Create" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Cancel">
+      <wsdl:documentation>[Ajouté 2013/04 - V1105] - Permet l'annulation d'un document de vente, sans l’avoir bloqué auparavant.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/Cancel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Close">
+      <wsdl:documentation>[Ajouté 2013/07 - V1105] - Permet de solder une commande standard et les documents eCommerce.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/Close" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <wsdl:documentation>[Ajouté 2013/04 - V1102] - Permet la modification d'un document de vente.  Annule et remplace le document d'origine tout en conservant ses identifiants. Le document ne doit pas avoir de lien vers d'autres pièces. Pour mettre à jour des règlements percus existants, utiliser la méthode UpdatePayments</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/Update" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePayments">
+      <wsdl:documentation>[Ajouté 2013/04 - V1105] - Permet la modification des paiments d'un document de vente.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/UpdatePayments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateHeader">
+      <wsdl:documentation>[Ajouté 2013/04 - V1102] - Permet la modification des éléments de l'entête d'un document de vente.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/UpdateHeader" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetByExternalReference">
+      <wsdl:documentation>[Ajouté 2013/04 - V1102] - Permet d'obtenir une liste de documents de vente en fonction d'une référence externe.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/GetByExternalReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation />
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Lock">
+      <wsdl:documentation>[Ajouté 2013/08 - V1105] - Permet le blocage d'un document de vente ecommerce.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/Lock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Unlock">
+      <wsdl:documentation>[Ajouté 2013/08 - V1105] - Permet le déblocage d'un document de vente ecommerce.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/Unlock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CustomersReservationCreate">
+      <wsdl:documentation>[Ajouté 2014/05 - V1110] [Bêta] - Permet la création d'une réservation client.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ISaleDocumentService/CustomersReservationCreate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SaleDocumentService">
+    <wsdl:documentation>[Ajouté 2013/04 - V1102] - Contrat du Web Service pour la gestion des ventes.</wsdl:documentation>
+    <wsdl:port name="BasicHttpBinding_ISaleDocumentService" binding="tns:BasicHttpBinding_ISaleDocumentService">
+      <soap:address location="http://gyd-test-iis01/Y2_TEST/SaleDocumentService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
