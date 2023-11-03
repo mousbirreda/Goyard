@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.cegid.fr/Retail/1.0" elementFormDefault="qualified" targetNamespace="http://www.cegid.fr/Retail/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://gyd-test-iis01/Y2_TEST/ItemInventoryWcfService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="HelloWorld">
+    <xs:annotation>
+      <xs:documentation>Méthode HelloWorld pour valider l'accès au Web Service depuis tout client HTTP très léger via Javascript par exemple</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="text" nillable="true" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Texte à passer pour tester la consommation.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="clientContext" nillable="true" type="tns:RetailContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="RetailContext">
+    <xs:annotation>
+      <xs:documentation>Contexte applicatif.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DatabaseId" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Identifiant de la base de données à utiliser dans le contexte d'exécution.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RetailContext" nillable="true" type="tns:RetailContext" />
+  <xs:element name="HelloWorldResponse">
+    <xs:annotation>
+      <xs:documentation>Méthode HelloWorld pour valider l'accès au Web Service depuis tout client HTTP très léger via Javascript par exemple</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HelloWorldResult" nillable="true" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Renvoie le texte saisi en entrée, concaténé de la phrase 'Hello You'</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAvailableQty">
+    <xs:annotation>
+      <xs:documentation>Renvoie la quantité disponible en stock pour un article sans dimension ou SKU.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemId" nillable="true" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>[Obsolète] - Référence de l’article - utilise les priorités de recherche article</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="itemIdentifier" nillable="true" type="tns:ItemIdentifier">
+          <xs:annotation>
+            <xs:documentation>[Ajouté 2013/08 - V1104] [Optionnel] - Comportement par defaut: Cette propriété remplacera à terme [itemId] qui deviendra obsolète avant d'être supprimée</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="storeId" nillable="true" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>[Ajouté 2013/11 - V1104] [Optionnel] - Identifiant de l'établissement utilisé. - Comportement par defaut: Si le dépôt [warehouseId] n'est pas précisé, c'est le dépôt le plus prioritaire qui est utilisé - Relatif à la colonne [ETABLISS.ET_ETABLISSEMENT]</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="warehouseId" nillable="true" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>[Obsolète] [Optionnel] - Identifiant du dépôt utilisé. - Comportement par defaut: Utilise le dépôt par défaut de l'utilisateur - Relatif à la colonne [DEPOT.GDE_DEPOT]</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="clientContext" nillable="true" type="tns:RetailContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ItemIdentifier">
+    <xs:annotation>
+      <xs:documentation>Critères d'identification d'un article : fournir soit 'Id' soit 'Reference' pour rechercher un article respectivement par son identifiant ou bien par sa référence.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Identifiant de l'article. - Relatif à la colonne [ARTICLE.GA_ARTICLE].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Reference" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Référence de l'article - utilise les priorités de recherche article.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ItemIdentifier" nillable="true" type="tns:ItemIdentifier" />
+  <xs:element name="GetAvailableQtyResponse">
+    <xs:annotation>
+      <xs:documentation>Renvoie la quantité disponible en stock pour un article sans dimension ou SKU.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAvailableQtyResult" nillable="true" type="tns:AvailableQtyReturn">
+          <xs:annotation>
+            <xs:documentation>Renvoie la quantité disponible en stock. la valeur 0 est retournée si l'identifant de l'article ou l'identifiant dépôt sont incorrects.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AvailableQtyReturn">
+    <xs:annotation>
+      <xs:documentation>Structure contenant deux  informations. le cumul des quantités se retrouve dans le membre AvailableQty.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AvailableQty" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation>Quantité disponible en stock de l’article déterminé. - Relatif à la colonne [DISPO.GQ_RESERVEFOU / DISPO.GQ_ANNONCELIV / DISPO.GQ_ANNONCETRF / DISPO.GQ_PROPOACHAT / DISPO.GQ_PREPACLI / DISPO.GQ_DISPOCLI / DISPO.GQ_RESERVECLI / DISPO.GQ_RESERVETRF / DISPO.GQ_DEMRESERVECLI / DISPO.GQ_PANIERWEB].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="QueryStatus" type="tns:QueryExecutionStatus">
+        <xs:annotation>
+          <xs:documentation>Type de retour.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AvailableQtyReturn" nillable="true" type="tns:AvailableQtyReturn" />
+  <xs:simpleType name="QueryExecutionStatus">
+    <xs:annotation>
+      <xs:documentation>Codes de retours possibles de la fonction de recherche du dépôt principal d'un établissement.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ok">
+        <xs:annotation>
+          <xs:documentation>Recherche bien executée, dépôt trouvé.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IncorrectWarehouseId">
+        <xs:annotation>
+          <xs:documentation>Code dépôt inccorect.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IncorrectStoreId">
+        <xs:annotation>
+          <xs:documentation>Code établissement incorrect.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="StoreNotFound">
+        <xs:annotation>
+          <xs:documentation>Etablissement inconnu.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Unknown">
+        <xs:annotation>
+          <xs:documentation>Indéfini, erreur sans explication fonctionnelle.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="QueryExecutionStatus" nillable="true" type="tns:QueryExecutionStatus" />
+  <xs:element name="GetAvailableCumulativeQtyAllStores">
+    <xs:annotation>
+      <xs:documentation>Renvoie le cumul des quantités disponibles en stock de tous les établissements accessibles à l’utilisateur courant. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemId" nillable="true" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>[Obsolète] - Référence à utiliser pour déterminer l’article dont le cumul tout établissement doit être retourné.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="itemIdentifier" nillable="true" type="tns:ItemIdentifier">
+          <xs:annotation>
+            <xs:documentation>[Ajouté 2013/08 - V1104] [Optionnel] - Comportement par defaut: Cette propriété remplacera à terme [itemId] qui deviendra obsolète avant d'être supprimée</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="clientContext" nillable="true" type="tns:RetailContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAvailableCumulativeQtyAllStoresResponse">
+    <xs:annotation>
+      <xs:documentation>Renvoie le cumul des quantités disponibles en stock de tous les établissements accessibles à l’utilisateur courant. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAvailableCumulativeQtyAllStoresResult" nillable="true" type="tns:AvailableQtyReturn">
+          <xs:annotation>
+            <xs:documentation>Renvoie un objet contenant à la fois le cumul des quantité disponible en stock et le status de la recherche des dépôts. Si aucun dépôt n'a pu être déterminé, la quantité cumulée vaut 0.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInventoryDetailByStore">
+    <xs:annotation>
+      <xs:documentation>Renvoie le détail par établissement de la quantité disponible en stock pour un article sans dimension ou SKU. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemId" nillable="true" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>[Obsolète] - Référence à utiliser pour déterminer l’article dont le détail par établissement doit être retourné.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="itemIdentifier" nillable="true" type="tns:ItemIdentifier">
+          <xs:annotation>
+            <xs:documentation>[Ajouté 2013/08 - V1104] [Optionnel] - Comportement par defaut: Cette propriété remplacera à terme [itemId] qui deviendra obsolète avant d'être supprimée</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="clientContext" nillable="true" type="tns:RetailContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInventoryDetailByStoreResponse">
+    <xs:annotation>
+      <xs:documentation>Renvoie le détail par établissement de la quantité disponible en stock pour un article sans dimension ou SKU. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetInventoryDetailByStoreResult" nillable="true" type="tns:ArrayOfAvailableQtyByStore">
+          <xs:annotation>
+            <xs:documentation>Renvoie une liste d'associations établissement - quantité disponible. Si aucun établissement n'est ouvert ou si l'article est inconnu, renvoie une liste vide.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfAvailableQtyByStore">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AvailableQtyByStore" nillable="true" type="tns:AvailableQtyByStore" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAvailableQtyByStore" nillable="true" type="tns:ArrayOfAvailableQtyByStore" />
+  <xs:complexType name="AvailableQtyByStore">
+    <xs:annotation>
+      <xs:documentation>Objet, type couple, contenant une quantité disponible et l'identifant de l'établissement, dont le dépôt principal a été choisi pour le calcul du stock.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AvailableQty" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation>Quantité disponible en stock de l’article déterminé. Si la référence article n’a pas permis de déterminer un identifiant article CBR, la quantité est renvoyée à 0.  - Relatif à la colonne [DISPO.GQ_RESERVEFOU / DISPO.GQ_ANNONCELIV / DISPO.GQ_ANNONCETRF / DISPO.GQ_PROPOACHAT / DISPO.GQ_PREPACLI / DISPO.GQ_DISPOCLI / DISPO.GQ_RESERVECLI / DISPO.GQ_RESERVETRF / DISPO.GQ_DEMRESERVECLI / DISPO.GQ_PANIERWEB].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="StoreDescription" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Identifiant de l’établissement dont le dépôt principal a été utilisé pour lire la quantité disponible. - Relatif à la colonne [ETABLISS.ET_LIBELLE].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="StoreId" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Libellé de l’établissement. - Relatif à la colonne [ETABLISS.ET_ETABLISSEMENT].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AvailableQtyByStore" nillable="true" type="tns:AvailableQtyByStore" />
+  <xs:element name="UpdateShoppingCart">
+    <xs:annotation>
+      <xs:documentation>[Ajouté 2013/08 - V1105] - Permet la mise à jour différentielle de la quantité "panier web" d'un article pour un dépôt donné.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:UpdateShoppingCart_Request" />
+        <xs:element minOccurs="0" name="clientContext" nillable="true" type="tns:RetailContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UpdateShoppingCart_Request">
+    <xs:annotation>
+      <xs:documentation>Structure des paramètres permettant la mise a jour.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ItemIdentifier" nillable="true" type="tns:ItemIdentifier" />
+      <xs:element name="Quantity" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation>Quantité. - Relatif à la colonne [DISPO.GQ_PANIERWEB].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WarehouseId" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Identifiant du dépôt. - Relatif à la colonne [DISPO.GQ_DEPOT].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UpdateShoppingCart_Request" nillable="true" type="tns:UpdateShoppingCart_Request" />
+  <xs:element name="UpdateShoppingCartResponse">
+    <xs:annotation>
+      <xs:documentation>[Ajouté 2013/08 - V1105] - Permet la mise à jour différentielle de la quantité "panier web" d'un article pour un dépôt donné.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetShoppingCart">
+    <xs:annotation>
+      <xs:documentation>[Ajouté 2013/08 - V1105] - Permet la remise à zéro de la quantité "panier web" d'un article pour un dépôt donné. Si aucun article n'est précisé, on remet a zéro la quantité pour tout le dépôt.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:ResetShoppingCart_Request" />
+        <xs:element minOccurs="0" name="clientContext" nillable="true" type="tns:RetailContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ResetShoppingCart_Request">
+    <xs:annotation>
+      <xs:documentation>Structure des paramètres permettant la remise à zéro.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ItemIdentifier" nillable="true" type="tns:ItemIdentifier">
+        <xs:annotation>
+          <xs:documentation>[Optionnel].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WarehouseId" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Identifiant du dépôt. - Relatif à la colonne [DISPO.GQ_DEPOT].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResetShoppingCart_Request" nillable="true" type="tns:ResetShoppingCart_Request" />
+  <xs:element name="ResetShoppingCartResponse">
+    <xs:annotation>
+      <xs:documentation>[Ajouté 2013/08 - V1105] - Permet la remise à zéro de la quantité "panier web" d'un article pour un dépôt donné. Si aucun article n'est précisé, on remet a zéro la quantité pour tout le dépôt.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListItemInventoryDetailByStore">
+    <xs:annotation>
+      <xs:documentation>[Ajouté 2013/10 - V1104] - Renvoie le détail de la quantité disponible en stock pour une liste d'article (générique, sans dimension, ou SKU) et une liste de boutique. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="inventoryStoreItemDetailRequest" nillable="true" type="tns:GetListItemInventoryDetailByStore_Request" />
+        <xs:element minOccurs="0" name="clientContext" nillable="true" type="tns:RetailContext" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="GetListItemInventoryDetailByStore_Request">
+    <xs:annotation>
+      <xs:documentation>[Ajouté 2013/10 - V1104] - Objet utilisé pour véhiculer les données pour l'obtention du détail des stocks d'articles par boutique</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AllAvailableWarehouse" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>[Ajouté 2013/10 - V1104] [Optionnel] - Avec les dépots visibles des autres boutiques ? Si Non alors stock du dépot principal de la boutique uniquement - Valeur par defaut: False.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="DetailSku" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>[Ajouté 2013/10 - V1104] [Optionnel] - Si l'article est générique, faut-il détailler ses skus et leur stock ? - Valeur par defaut: False.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ItemIdentifiers" nillable="true" type="tns:ArrayOfItemIdentifier">
+        <xs:annotation>
+          <xs:documentation>[Ajouté 2013/10 - V1104] - Listes de articles à inventorier.L'article peut-être générique (GEN), unique (UNI) ou dimensionné (DIM).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="OnlyAvailableStock" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>[Ajouté 2013/10 - V1104] [Optionnel] - Uniquement les données dont le stock est positif ? - Valeur par defaut: False.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Pager" nillable="true" type="tns:Pager">
+        <xs:annotation>
+          <xs:documentation>[Ajouté 2013/10 - V1104] [Optionnel] - Objet de pagination.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="StoreIds" nillable="true" type="q1:ArrayOfstring">
+        <xs:annotation>
+          <xs:documentation>[Ajouté 2013/10 - V1104] [Optionnel] - Liste des boutiques dont le stock est à retourner. - Comportement par defaut: Si non fourni, le stock de toutes les boutiques accessibles à l'utilisateur courant est retourné. - Relatif à la colonne [ETABLISS.ET_ETABLISSEMENT].</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="WithStoreName" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>[Ajouté 2013/10 - V1104] [Optionnel] - Faut-il récupérer le nom de l'établissement ? - Valeur par defaut: False.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetListItemInventoryDetailByStore_Request" nillable="true" type="tns:GetListItemInventoryDetailByStore_Request" />
+  <xs:complexType name="ArrayOfItemIdentifier">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ItemIdentifier" nillable="true" type="tns:ItemIdentifier" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfItemIdentifier" nillable="true" type="tns:ArrayOfItemIdentifier" />
+  <xs:complexType name="Pager">
+    <xs:annotation>
+      <xs:documentation>Objet pour la gestion de la pagination. 1ère page : PageSize = 50, PageIndex = 1 - 2ème page : PageSize = 50, PageIndex = 2" </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PageIndex" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>[Optionnel] - Indice de la page à retourner. 1 par défaut. - Valeur par defaut: 1.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="PageSize" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>[Optionnel] - Nombre de lignes maximums à retourner dans la page. - Valeur par defaut: 20.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Pager" nillable="true" type="tns:Pager" />
+  <xs:element name="GetListItemInventoryDetailByStoreResponse">
+    <xs:annotation>
+      <xs:documentation>[Ajouté 2013/10 - V1104] - Renvoie le détail de la quantité disponible en stock pour une liste d'article (générique, sans dimension, ou SKU) et une liste de boutique. </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetListItemInventoryDetailByStoreResult" nillable="true" type="tns:GetListItemInventoryDetailByStore_Reply">
+          <xs:annotation>
+            <xs:documentation>Renvoie la liste des détails de stock</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="GetListItemInventoryDetailByStore_Reply">
+    <xs:annotation>
+      <xs:documentation>Réponse du service GetListItemInventoryDetailByStore</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="InventoryDetailsByStore" nillable="true" type="tns:ArrayOfAvailableQtyByItemByStore">
+        <xs:annotation>
+          <xs:documentation>Liste des stocks par article et boutique.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetListItemInventoryDetailByStore_Reply" nillable="true" type="tns:GetListItemInventoryDetailByStore_Reply" />
+  <xs:complexType name="ArrayOfAvailableQtyByItemByStore">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AvailableQtyByItemByStore" nillable="true" type="tns:AvailableQtyByItemByStore" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAvailableQtyByItemByStore" nillable="true" type="tns:ArrayOfAvailableQtyByItemByStore" />
+  <xs:complexType name="AvailableQtyByItemByStore">
+    <xs:annotation>
+      <xs:documentation>Pour un article : la liste des boutiques et leur stock</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ItemCode" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Code de l'article.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="StoresAvailableQty" nillable="true" type="tns:ArrayOfStoreAvailableQty">
+        <xs:annotation>
+          <xs:documentation>Liste des stocks par magasin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AvailableQtyByItemByStore" nillable="true" type="tns:AvailableQtyByItemByStore" />
+  <xs:complexType name="ArrayOfStoreAvailableQty">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StoreAvailableQty" nillable="true" type="tns:StoreAvailableQty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStoreAvailableQty" nillable="true" type="tns:ArrayOfStoreAvailableQty" />
+  <xs:complexType name="StoreAvailableQty">
+    <xs:annotation>
+      <xs:documentation>Quantité en stock pour une boutique</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AvailableQuantity" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation>Quantité en stock.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="AvailableSkusQty" nillable="true" type="tns:ArrayOfAvailableSkuQty">
+        <xs:annotation>
+          <xs:documentation>Liste des SKU et leur quantité en stock.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="StoreId" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Identifiant de la boutique.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="StoreName" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+          <xs:documentation>Nom de la boutique.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StoreAvailableQty" nillable="true" type="tns:StoreAvailableQty" />
+  <xs:complexType name="ArrayOfAvailableSkuQty">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AvailableSkuQty" nillable="true" type="tns:AvailableSkuQty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAvailableSkuQty" nillable="true" type="tns:ArrayOfAvailableSkuQty" />
+  <xs:complexType name="AvailableSkuQty">
+    <xs:annotation>
+      <xs:documentation>Liste des dimensions d'un Sku avec la quantité en stock</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AvailableQty" type="xs:decimal">
+        <xs:annotation>
+          <xs:documentation>Quantité disponible en stock du SKU.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Dimension1" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+          <xs:documentation>Code de la dimension 1.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Dimension2" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+          <xs:documentation>Code de la dimension 2.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Dimension3" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+          <xs:documentation>Code de la dimension 3.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Dimension4" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+          <xs:documentation>Code de la dimension 4.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="Dimension5" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+          <xs:documentation>Code de la dimension 5.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AvailableSkuQty" nillable="true" type="tns:AvailableSkuQty" />
+</xs:schema>

@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="http://www.cegid.fr/Retail/1.0" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ItemInventoryWcfService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://www.cegid.fr/Retail/1.0" location="http://gyd-test-iis01/Y2_TEST/ItemInventoryWcfService.svc?wsdl=wsdl0" />
+  <wsdl:types />
+  <wsdl:binding name="BasicHttpBinding_IItemInventoryWcfService" type="i0:IItemInventoryWcfService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <wsdl:documentation>Méthode HelloWorld pour valider l'accès au Web Service depuis tout client HTTP très léger via Javascript par exemple</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/ICbrBasicWebServiceInterface/HelloWorld" style="document" />
+      <wsdl:input>
+        <wsdl:documentation>Texte à passer pour tester la consommation.</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation>Renvoie le texte saisi en entrée, concaténé de la phrase 'Hello You'</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableQty">
+      <wsdl:documentation>Renvoie la quantité disponible en stock pour un article sans dimension ou SKU.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/IItemInventoryWcfService/GetAvailableQty" style="document" />
+      <wsdl:input>
+        <wsdl:documentation>[Obsolète] - Référence de l’article - utilise les priorités de recherche article</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation>Renvoie la quantité disponible en stock. la valeur 0 est retournée si l'identifant de l'article ou l'identifiant dépôt sont incorrects.</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableCumulativeQtyAllStores">
+      <wsdl:documentation>Renvoie le cumul des quantités disponibles en stock de tous les établissements accessibles à l’utilisateur courant. </wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/IItemInventoryWcfService/GetAvailableCumulativeQtyAllStores" style="document" />
+      <wsdl:input>
+        <wsdl:documentation>[Obsolète] - Référence à utiliser pour déterminer l’article dont le cumul tout établissement doit être retourné.</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation>Renvoie un objet contenant à la fois le cumul des quantité disponible en stock et le status de la recherche des dépôts. Si aucun dépôt n'a pu être déterminé, la quantité cumulée vaut 0.</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInventoryDetailByStore">
+      <wsdl:documentation>Renvoie le détail par établissement de la quantité disponible en stock pour un article sans dimension ou SKU. </wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/IItemInventoryWcfService/GetInventoryDetailByStore" style="document" />
+      <wsdl:input>
+        <wsdl:documentation>[Obsolète] - Référence à utiliser pour déterminer l’article dont le détail par établissement doit être retourné.</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation>Renvoie une liste d'associations établissement - quantité disponible. Si aucun établissement n'est ouvert ou si l'article est inconnu, renvoie une liste vide.</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateShoppingCart">
+      <wsdl:documentation>[Ajouté 2013/08 - V1105] - Permet la mise à jour différentielle de la quantité "panier web" d'un article pour un dépôt donné.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/IItemInventoryWcfService/UpdateShoppingCart" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ResetShoppingCart">
+      <wsdl:documentation>[Ajouté 2013/08 - V1105] - Permet la remise à zéro de la quantité "panier web" d'un article pour un dépôt donné. Si aucun article n'est précisé, on remet a zéro la quantité pour tout le dépôt.</wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/IItemInventoryWcfService/ResetShoppingCart" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetListItemInventoryDetailByStore">
+      <wsdl:documentation>[Ajouté 2013/10 - V1104] - Renvoie le détail de la quantité disponible en stock pour une liste d'article (générique, sans dimension, ou SKU) et une liste de boutique. </wsdl:documentation>
+      <soap:operation soapAction="http://www.cegid.fr/Retail/1.0/IItemInventoryWcfService/GetListItemInventoryDetailByStore" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsdl:documentation>Renvoie la liste des détails de stock</wsdl:documentation>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CbpFaultDetailFault">
+        <soap:fault use="literal" name="CbpFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessFaultDetailFault">
+        <soap:fault use="literal" name="BusinessFaultDetailFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ExceptionDetail">
+        <soap:fault use="literal" name="ExceptionDetail" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="CbpExceptionDetail">
+        <soap:fault use="literal" name="CbpExceptionDetail" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ItemInventoryWcfService">
+    <wsdl:documentation>[Ajouté V1105] - Contrat du Web Service pour la consultation du stock disponible pour un article dans un dépôt.</wsdl:documentation>
+    <wsdl:port name="BasicHttpBinding_IItemInventoryWcfService" binding="tns:BasicHttpBinding_IItemInventoryWcfService">
+      <soap:address location="http://gyd-test-iis01/Y2_TEST/ItemInventoryWcfService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
